@@ -75,7 +75,7 @@ pipeline {
             }
             steps {
                   sh '''
-                        npm i netlify-cli
+                        npm install netlify-cli
                         node_modules/.bin/netlify --version
 
                   '''
