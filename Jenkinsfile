@@ -40,7 +40,23 @@ pipeline {
                             npm test
                         '''
                     }
-                }
+        }
+        stage('E2E') {
+                            // 让 "test" 阶段也使用相同 Docker 容器
+                            agent {
+                                docker {
+                                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                                    reuseNode true
+                                }
+                            }
+                            steps {
+                                sh '''
+                                    npm install -g serve
+                                    serve -s build
+                                    npx playwright test
+                                '''
+                            }
+        }
 
 
     }
