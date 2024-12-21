@@ -61,8 +61,6 @@ pipeline {
                             npm install serve
                             node_modules/.bin/serve -s build &
                             sleep 10
-                            mkdir -p playwright-report
-                            chmod 777 playwright-report
                             npx playwright test --reporter=html --output=playwright-report
                         '''
                     }
@@ -99,8 +97,6 @@ pipeline {
             }
             steps {
                 sh '''
-                    mkdir -p playwright-report
-                    chmod 777 playwright-report
                     npx playwright test --reporter=html --output=playwright-report
                 '''
             }
