@@ -30,6 +30,7 @@ pipeline {
                                       echo "index.html is missing, failing the build"
                                       exit 1
                                     fi
+                    npm run test
                   '''
             }
         }
