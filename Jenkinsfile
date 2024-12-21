@@ -4,6 +4,7 @@ pipeline {
     environment{
         NETLIFY_SITE_ID = '57501be0-913c-4b2a-89e1-b5797c1b9152'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
+
     }
 
     stages {
@@ -91,6 +92,23 @@ pipeline {
                   '''
             }
         }
+        stage('Prod E2E'){
+                    agent {
+                          docker {
+                                 image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                                 reuseNode true
+                          }
+                    }
+                    environment{
+                            CI_ENVIRONMENT_URL  = 'https://melodic-pasca-c42481.netlify.app'
+                        }
+                    steps {
+                          sh '''
+                                npx playwright test --reporter=html
+
+                          '''
+                    }
+                }
 
 
 
