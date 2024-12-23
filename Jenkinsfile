@@ -106,7 +106,7 @@ pipeline {
             }
 
             environment {
-                CI_ENVIRONMENT_URL = 'https://melodic-pasca-c42481.netlify.app'
+                CI_ENVIRONMENT_URL = 'https://676688bd24c64eee66f22c3a--melodic-pasca-c42481.netlify.app/'
             }
 
             steps {
