@@ -7,6 +7,25 @@ pipeline {
 
     stages {
 
+        stage('Build') {
+                    agent {
+                        docker {
+                            image 'node:18-alpine'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh '''
+                            ls -a
+                            node --version
+                            npm --version
+                            npm ci
+                            npm run build
+                            ls -la
+                        '''
+                    }
+                }
+
         stage('Upload to AWS S3') {
             agent {
                 docker {
@@ -18,8 +37,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'my-aws-s3', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         aws --version
-                        echo "Hello S323234324!" > index.html
-                        aws s3 cp index.html s3://$AWS_S3_BUCKET/index.html
+                        aws s3 sync build s3://$AWS_S3_BUCKET
                     '''
                 }
             }
