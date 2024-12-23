@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         AWS_S3_BUCKET = 'learn-jenkins-20241221' // 替换为你的 S3 存储桶名称
+        REACT_APP_VERSION = "1.0.$BUILD_ID"
+        AWS_DEFAULT_REGION = 'ap-southeast-2'
     }
 
     stages {
